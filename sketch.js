@@ -3,6 +3,8 @@ let playerX, playerY;
 let coinX, coinY;
 let obstacleX, obstacleY;
 let score = 0;
+let speed = 3;
+let hits = 0;
 let gameOver = false;
 
 function setup() {
@@ -81,19 +83,17 @@ function movePlayer() {
   // HINT: Use UP_ARROW and DOWN_ARROW keys
   // Movement should be 5 pixels per frame
   
-  // TODO: Add boundary checking
-  // HINT: Keep player within canvas bounds
-  // Check against 0, width, and height
+
 }
 
 function moveObstacle() {
   // TODO: Move obstacle from left to right
   // HINT: Increase obstacleX by obstacleSpeed
-  obstacleX += speed
+  obstacleY += speed
   // TODO: Reset obstacle when it goes off screen
   // HINT: Check if obstacleX > width
   // Reset to left side and new random Y position
-  if(obstacleX>width){
+  if(obstacleY>width){
     
   }
 }
@@ -105,6 +105,12 @@ function checkCoinCollection() {
   //   - Increase score
   //   - Create new coin
   //   - Increase obstacle speed slightly
+  if (dist(playerX, playerY, coinX, coinY) < 15){
+    score++
+    newCoin()
+    speed += .5
+
+  }
 }
 
 function checkCollisions() {
@@ -114,12 +120,22 @@ function checkCollisions() {
   //   - Increase hits
   //   - Check for game over (hits >= 3)
   //   - Reset positions
+  if(dist(playerX,playerY,obstacleX,obstacleY) < 20){
+    hits ++
+    if (hits >= 3){
+      gameOver()
+    }
+
+  }
 }
 
 function displayStats() {
   fill(0);
   textSize(16);
   text("Score: " + score, 10, 20);
+  text("Hits: " + hits, 150,20)
+  text("Speed: " + speed, 275,20)
+  
   // TODO: Add display for hits and speed
 }
 
@@ -130,6 +146,7 @@ function displayGameOver() {
   //   - "Game Over" message
   //   - Final score
   //   - "Press R to Restart"
+
 }
 
 function newCoin() {
@@ -143,12 +160,20 @@ function resetGame() {
   // HINT: Reset score, hits, speed
   // Set gameOver to false
   // Call initializeGame()
+  speed = 3
+  score = 0
+  hits = 0
+  gameOver = false
+  initializeGame()
 }
 
 function keyPressed() {
   // TODO: Check for 'R' key to restart game
   // HINT: Use key === 'r' || key === 'R'
   // Only works when game is over
+  if(keyIsDown(82)){
+    game
+  }
 }
 
 // Helper function you might need
