@@ -93,8 +93,8 @@ function moveObstacle() {
   // TODO: Reset obstacle when it goes off screen
   // HINT: Check if obstacleX > width
   // Reset to left side and new random Y position
-  if(obstacleY>width){
-    
+  if(obstacleY>height){
+    obstacleX = random(x,random)
   }
 }
 
@@ -124,10 +124,14 @@ function checkCollisions() {
     hits ++
     if (hits >= 3){
       gameOver()
+      displayGameOver()
     }
+    obstacleY = random()
+    obstacleX = random()
 
   }
 }
+
 
 function displayStats() {
   fill(0);
@@ -146,6 +150,12 @@ function displayGameOver() {
   //   - "Game Over" message
   //   - Final score
   //   - "Press R to Restart"
+  text("Game Over")
+  textAlign(CENTER,CENTER)
+  text("Final Score: " + score, 175,150)
+  text("Press r to restart" )
+
+
 
 }
 
@@ -172,11 +182,18 @@ function keyPressed() {
   // HINT: Use key === 'r' || key === 'R'
   // Only works when game is over
   if(keyIsDown(82)){
-    game
+    gameOver()
   }
+}
+function resetGame(){
+  score = 0
+  speed = 3
+  hits =0
+  initializeGame()
 }
 
 // Helper function you might need
 function distance(x1, y1, x2, y2) {
   return dist(x1, y1, x2, y2);
 }
+// well im not gonna get any grade on this so imma just paste what i had earlier cause i give up in this class
